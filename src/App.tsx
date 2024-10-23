@@ -7,7 +7,7 @@ function App() {
       <div className='w-1/3 text-center'>
         <Image />
       </div>
-      <div className='w-2/3 text-center'>
+      <div className='w-2/3 flex flex-col justify-center items-center'>
         <SignUp />
       </div>
     </div>
