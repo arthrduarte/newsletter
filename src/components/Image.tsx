@@ -1,7 +1,7 @@
 export default function Image() {
     return (
         <>
-            <img src="src/assets/20240717_191142.jpg" className='w-full' alt="" />
+            <img src="src/assets/Logo.webp" className='w-full h-svh object-cover' alt="Steel Stacker's image" />
         </>
     )
 }
