@@ -1,18 +1,14 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-
+import Image from './components/Image'
+import SignUp from './components/SignUp'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div>
-      <div>
-        <h1>Imagem</h1>
+    <div className='flex flex-col lg:flex-row'>
+      <div className='w-1/2 text-center'>
+        <Image />
       </div>
-      <div>
-        <h1>Sign Up</h1>
+      <div className='w-1/2 text-center'>
+        <SignUp />
       </div>
     </div>
   )
