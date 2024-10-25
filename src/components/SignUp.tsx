@@ -1,8 +1,16 @@
 import { Input } from "@/components/ui/input"
 import { EnvelopeOpenIcon } from "@radix-ui/react-icons"
 import { Button } from "@/components/ui/button"
+import { useState } from "react"
+import { setegid } from "process"
 
 export default function SignUp() {
+    const [email, setEmail] = useState('')
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        console.log("oiee", email)
+    }
     return (
         <>
             <div className="lg:w-1/2 text-center">
@@ -16,9 +24,14 @@ export default function SignUp() {
                 </div>
             </div>
             <div className="lg:w-1/3 my-10">
-                <form action="">
-                    <Input type="email" placeholder="Email" />
-                    <Button className="w-full mt-3">
+                <form onSubmit={handleSubmit}>
+                    <Input
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <Button className="w-full mt-3" type="submit">
                         <EnvelopeOpenIcon /> Login with Email
                     </Button>
                 </form>
