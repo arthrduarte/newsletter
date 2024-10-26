@@ -3,6 +3,7 @@ import jsonp from "jsonp"
 import { Input } from "@/components/ui/input"
 import { EnvelopeOpenIcon } from "@radix-ui/react-icons"
 import { Button } from "@/components/ui/button"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 
 const SignUpForm = () => {
@@ -18,9 +19,13 @@ const SignUpForm = () => {
         jsonp(`${postUrl}&EMAIL=${email}&FNAME=${firstName}&LNAME=${lastName}`, { param: "c" }, (err, data) => {
             if (err) {
                 console.log(err)
+                setMessage('Something went wrong, please try again later')
             }
             const { msg } = data
             setMessage(msg)
+            setEmail('')
+            setFirstName('')
+            setLastName('')
         })
     }
 
@@ -65,7 +70,11 @@ const SignUpForm = () => {
                     <Button className="w-full mt-3" type="submit">
                         <EnvelopeOpenIcon /> Subscribe
                     </Button>
-                    <p className='mt-3'>{message}</p>
+                    {message && (
+                        <Alert className="mt-3">
+                            <AlertDescription>{message}</AlertDescription>
+                        </Alert>
+                    )}
                 </form>
             </div>
             <div>
