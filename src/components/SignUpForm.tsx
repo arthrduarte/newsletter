@@ -1,31 +1,27 @@
 import React, { useState } from 'react'
-import MailchimpSubscribe from "react-mailchimp-subscribe";
+import jsonp from "jsonp"
 import { Input } from "@/components/ui/input"
 import { EnvelopeOpenIcon } from "@radix-ui/react-icons"
 import { Button } from "@/components/ui/button"
 
-interface CustomFormProps {
-    status: string | null,
-    message: string | null | Error,
-    onValidated: (formData: { EMAIL: string, MERGE1: string, MERGE2: string }) => void
-}
 
-const CustomForm = ({ status, message, onValidated }: CustomFormProps) => {
+const SignUpForm = () => {
     const [email, setEmail] = useState('')
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
+    const [message, setMessage] = useState('')
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        console.log('submited')
         e.preventDefault();
-        email &&
-            firstName &&
-            lastName &&
-            email.indexOf("@") > -1 &&
-            onValidated({
-                EMAIL: email,
-                MERGE1: firstName,
-                MERGE2: lastName,
-            });
+        const postUrl = `https://outlook.us22.list-manage.com/subscribe/post?u=aabea6c3b79764caccab32c21&id=25252d76a8`
+        jsonp(`${postUrl}&EMAIL=${email}&FNAME=${firstName}&LNAME=${lastName}`, { param: "c" }, (err, data) => {
+            if (err) {
+                console.log(err)
+            }
+            const { msg } = data
+            setMessage(msg)
+        })
     }
 
     return (
@@ -42,9 +38,6 @@ const CustomForm = ({ status, message, onValidated }: CustomFormProps) => {
             </div>
             <div className="lg:w-1/3 my-10">
                 <form onSubmit={(e) => handleSubmit(e)}>
-                    {status === "sending" && (<div className="mc__alert mc__alert--sending">sending...</div>)}
-                    {status === "error" && message && (<div className="mc__alert mc__alert--error" dangerouslySetInnerHTML={{ __html: typeof message === 'string' ? message : message.toString() }} />)}
-                    {status === "success" && message && (<div className="mc__alert mc__alert--success" dangerouslySetInnerHTML={{ __html: typeof message === 'string' ? message : message.toString() }} />)}
                     <Input
                         type="text"
                         placeholder="First Name"
@@ -70,8 +63,9 @@ const CustomForm = ({ status, message, onValidated }: CustomFormProps) => {
                         className="mt-3"
                     />
                     <Button className="w-full mt-3" type="submit">
-                        <EnvelopeOpenIcon /> Login with Email
+                        <EnvelopeOpenIcon /> Subscribe
                     </Button>
+                    <p className='mt-3'>{message}</p>
                 </form>
             </div>
             <div>
@@ -82,24 +76,5 @@ const CustomForm = ({ status, message, onValidated }: CustomFormProps) => {
     )
 }
 
-const MailchimpFormContainer = () => {
 
-    const postUrl = `https://outlook.us22.list-manage.com/subscribe/post?u=${import.meta.env.REACT_APP_MAILCHIMP_U}&id=${import.meta.env.REACT_APP_MAILCHIMP_ID}`
-
-    return (
-        <div>
-            <MailchimpSubscribe
-                url={postUrl}
-                render={({ subscribe, status, message }) => (
-                    <CustomForm
-                        status={status}
-                        message={message}
-                        onValidated={formData => subscribe(formData)}
-                    />
-                )}
-            />
-        </div>
-    )
-}
-
-export default MailchimpFormContainer
+export default SignUpForm

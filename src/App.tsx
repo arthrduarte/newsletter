@@ -1,5 +1,5 @@
 import Image from './components/Image'
-import MailchimpFormContainer from './components/MailchimpFormContainer'
+import SignUpForm from './components/SignUpForm'
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
         <Image />
       </div>
       <div className='lg:w-2/3 lg:my-0 my-5 mx-5 text-center flex flex-col justify-center items-center'>
-        <MailchimpFormContainer />
+        <SignUpForm />
       </div>
     </div>
   )
