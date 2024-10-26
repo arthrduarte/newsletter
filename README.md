@@ -4,4 +4,4 @@ This project is a **Newsletter Subscription Form** built with Vite, React, and M
 
 ---
 
-**Made with 🗻 by (Arthur)[github.com/arthrduarte]**
+**Made with 🗻 by [Arthur](github.com/arthrduarte)**
