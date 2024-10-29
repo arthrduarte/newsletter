@@ -3,7 +3,7 @@ import jsonp from "jsonp"
 import { Input } from "@/components/ui/input"
 import { EnvelopeOpenIcon } from "@radix-ui/react-icons"
 import { Button } from "@/components/ui/button"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Alert, AlertDescription } from "@/components/ui/alert"
 
 
 const SignUpForm = () => {
